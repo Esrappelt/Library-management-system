@@ -69,12 +69,11 @@ a {
 }
 .bookInfo .range .baseInfo {
 	height: 50px;
-	line-height: 50px;
 	background: rgb(104, 54, 153);
 	color: white;
 }
 .bookInfo .range .book li {
-	margin-top: 15px;
+	margin: 10px 0;
 
 }
 .bookInfo .range .book {
@@ -87,15 +86,23 @@ a {
 	flex-direction: row;
 	text-align: center;
 	justify-content: space-around;
+	align-items: center;
 }
-
 
 .bookInfo .rangeTitle {
 	padding-left: 20px;
 	font-size: 20px;
 }
 
-
+.container {
+  width: 100%;
+  height: 50px;
+  background: rgba(104, 54, 153,.5);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
 
 
 

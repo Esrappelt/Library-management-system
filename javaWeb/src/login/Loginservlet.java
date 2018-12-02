@@ -17,8 +17,6 @@ public class Loginservlet extends HttpServlet{
 		String pwd = "160510111xyj";
 		String name = request.getParameter("name");
 		String psd = request.getParameter("pwd");
-
- 
 		try {
 			Class.forName(driverName);
 			try {
@@ -36,7 +34,8 @@ public class Loginservlet extends HttpServlet{
 					HttpSession session = request.getSession();
 					session.setAttribute("name", name);
 					//登录成功
-					request.getRequestDispatcher("main.jsp").forward(request,response); 
+					String site = "main.jsp";
+					request.getRequestDispatcher(site).forward(request,response); 
 				}else {
 					//登录失败
 					request.setAttribute("error", "您输入的管理员账号或密码不正确");

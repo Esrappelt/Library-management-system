@@ -22,12 +22,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-   <form name="form1" action="Loginservlet" method="post"> 
+   <form action="Loginservlet" method="post" > 
    		管理员姓名：<input type="text" name="name"/><br>
    		管理员密码：<input type="password" name="pwd" /> <br>
    		<input type="submit" value="确定" name="Submit" />
    		<input type="reset" value="重置" name="Submit3" />
-   		<input type="submit" value="关闭" name="Submit2" />
+
+
    </form> 
   
    <%if(request.getAttribute("error") != null) {%>
@@ -37,9 +38,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
   </body>
   <script>
-  	$(function(){
+  	$(function (){
   		
   	});
-  
   </script>
 </html>

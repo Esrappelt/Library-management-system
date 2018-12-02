@@ -16,9 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+
 
   </head>
   
@@ -56,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	}
    	function createBook(index,res){
    		var $ul = $("<ul class='book'></ul>");
-   		var $li = $("<li>"+(index)+"</li><li>"+(res.barcode)+"</li><li>"+(res.booname)+"</li><li>"+(res.isbnName)+"</li><li>"+(res.author)+"</li><li>"+(res.price)+"</li><li>"+(res.bookNumber)+"</li><li>"+(res.del ? "未下架" : "已下架")+"</li>");
+   		var $li = $("<li>"+(index)+"</li><li>"+(res.barcode)+"</li><li>"+(res.bookname)+"</li><li>"+(res.isbnName)+"</li><li>"+(res.author)+"</li><li>"+(res.price)+"</li><li>"+(res.bookNumber)+"</li><li>"+(res.del ? "未下架" : "已下架")+"</li>");
    		$ul.append($li);
    		return $ul;
    	}

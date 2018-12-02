@@ -30,7 +30,7 @@
 				<li class="content" data-id="givebackBook"><a href="javascript:;">图书归还</a></li>
 				<li class="content" data-id="findBook"><a href="javascript:;">图书查询</a></li>
 				<li class="content" data-id="exitSystem"><a href="javascript:;">退出系统</a></li>
-				<li class="root"><a href="javascript:;">管理员:肖誉杰</a></li>
+				<li class="root"><a href="javascript:;">管理员:<%=session.getAttribute("name")%></a></li>
 				<li id="time"></li>
 			</ul>
 		</div>
@@ -131,7 +131,7 @@
 	    	}
 	    	function createBook(index,res){
 	    		var $ul = $("<ul class='book'></ul>");
-	    		var $li = $("<li>"+(index)+"</li><li>"+(res.barcode)+"</li><li>"+(res.booname)+"</li><li>"+(res.isbnName)+"</li><li>"+(res.author)+"</li><li>"+(res.price)+"</li><li>"+(res.bookNumber)+"</li><li>"+(res.del ? "未下架" : "已下架")+"</li>");
+	    		var $li = $("<li>"+(index)+"</li><li>"+(res.barcode)+"</li><li>"+(res.bookname)+"</li><li>"+(res.isbnName)+"</li><li>"+(res.author)+"</li><li>"+(res.price)+"</li><li>"+(res.bookNumber)+"</li><li>"+(res.del ? "未下架" : "已下架")+"</li>");
 	    		$ul.append($li);
 	    		return $ul;
 	    	}

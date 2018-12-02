@@ -67,7 +67,7 @@ public class bookInfo extends HttpServlet {
 					map.put("price", price);
 					map.put("del", del);
 					map.put("barcode", barcode);
-					System.out.println(map);//输出这个map，看一下
+
 					list.add(map);//将这个map对象放入list
 				}
 				JSONArray jsonArray = JSONArray.fromObject(list);
