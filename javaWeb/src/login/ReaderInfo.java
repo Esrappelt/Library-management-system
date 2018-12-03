@@ -33,13 +33,13 @@ public class ReaderInfo extends HttpServlet {
 				Connection conn = DriverManager.getConnection(url,user,pwd);
 				//创建查询对象
 				st = conn.createStatement();
-				System.out.println("连接成功");
+				System.out.println("连接ReaderInfo成功");
 				
 				//连接成功后开始查询
 				
 				//先获取参数
 				String stuno = request.getParameter("stuno");
-				System.out.println("获取的参数为：" + stuno);
+				System.out.println("ReaderInfo获取的参数为：" + stuno);
 				
 				List<Map> list = new ArrayList<Map>();//创建list集合用于存入map的键值对集合
 				//写查询语句
@@ -47,6 +47,7 @@ public class ReaderInfo extends HttpServlet {
 				//获取结果
 				ResultSet rs = st.executeQuery(sql);
 				while(rs.next()){
+					String readerid = rs.getString("id");
 					String name = rs.getString("name");//获取姓名
 					String sex = rs.getString("sex");//获取性别
 					String barcode = rs.getString("barcode");//获取条形码
@@ -59,6 +60,7 @@ public class ReaderInfo extends HttpServlet {
 					
 					//创建Map
 					Map map = new HashMap();
+					map.put("readerid", readerid);
 					map.put("name", name);
 					map.put("sex", sex);
 					map.put("barcode", barcode);
@@ -78,12 +80,12 @@ public class ReaderInfo extends HttpServlet {
 				out.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
-			System.out.println("连接错误2");
+			System.out.println("连接ReaderInfo错误2");
 		}
 	
 	}catch(ClassNotFoundException e) {
 		e.printStackTrace();
-		System.out.println("连接错误1");
+		System.out.println("连接ReaderInfo错误1");
 	}
 	}
 	public void doPost(HttpServletRequest request,HttpServletResponse response) 

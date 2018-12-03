@@ -104,9 +104,16 @@ a {
   align-items: center;
 }
 
+.stuinfo {
+	text-align: center;
+	margin: 20px auto;
+}
 
-
-
+.bookTitle {
+	text-align: center;
+	padding: 10px 0;
+	margin-top:30px;
+}
 
 
 

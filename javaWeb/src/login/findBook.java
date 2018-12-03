@@ -46,7 +46,7 @@ public class findBook extends HttpServlet {
 			Class.forName(driverName);
 			try {
 				Connection conn = DriverManager.getConnection(url,user,pwd);
-				System.out.println("连接成功");
+				System.out.println("连接findBook成功");
 				
 				List<Map> list = new ArrayList<Map>();//创建list集合用于存入map的键值对集合
 				
@@ -67,6 +67,7 @@ public class findBook extends HttpServlet {
 				    
 				    //获取结果
 				    while(rs.next()){
+				    	String bookid = rs.getString("id");
 						String bookname = rs.getString("bookname");//获取图书名字
 						String author = rs.getString("author");//获取作者
 						String translator = rs.getString("translator");//获取翻译者
@@ -77,6 +78,7 @@ public class findBook extends HttpServlet {
 						String barcode = rs.getString("barcode");//获取是条形码
 
 						Map map = new HashMap();
+						map.put("bookid", bookid);
 						map.put("bookname", bookname);
 						map.put("author", author);
 						map.put("translator", translator);
@@ -97,12 +99,12 @@ public class findBook extends HttpServlet {
 				out.close();
 			}catch(SQLException e) {
 				e.printStackTrace();
-				System.out.println("连接错误2");
+				System.out.println("连接findBook错误2");
 			}
 			
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("连接错误1");
+			System.out.println("连接findBook错误1");
 		}
 		
 		

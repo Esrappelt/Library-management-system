@@ -39,7 +39,7 @@ public class bookInfo extends HttpServlet {
 				Connection conn = DriverManager.getConnection(url,user,pwd);
 				//创建查询对象
 				st = conn.createStatement();
-				System.out.println("连接成功");
+				System.out.println("连接bookInfo成功");
 				
 				//连接成功后开始查询
 				
@@ -49,6 +49,7 @@ public class bookInfo extends HttpServlet {
 				//获取结果
 				ResultSet rs = st.executeQuery(sql);
 				while(rs.next()){
+					String bookid = rs.getString("id");
 					String bookname = rs.getString("bookname");//获取图书名字
 					String author = rs.getString("author");//获取作者
 					String translator = rs.getString("translator");//获取翻译者
@@ -59,6 +60,7 @@ public class bookInfo extends HttpServlet {
 					String barcode = rs.getString("barcode");//获取是条形码
 					//创建Map
 					Map map = new HashMap();
+					map.put("bookid", bookid);
 					map.put("bookname", bookname);
 					map.put("author", author);
 					map.put("translator", translator);
@@ -77,12 +79,12 @@ public class bookInfo extends HttpServlet {
 				out.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
-			System.out.println("连接错误2");
+			System.out.println("连接bookInfo错误2");
 		}
 	
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("连接错误1");
+			System.out.println("连接bookInfo错误1");
 		}
 	}
 

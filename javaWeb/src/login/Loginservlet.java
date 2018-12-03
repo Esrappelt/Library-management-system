@@ -41,15 +41,15 @@ public class Loginservlet extends HttpServlet{
 					request.setAttribute("error", "您输入的管理员账号或密码不正确");
 					request.getRequestDispatcher("index.jsp").forward(request,response); 
 				}
-				System.out.println("连接成功");
+				System.out.println("连接Loginservlet成功");
 			}catch(SQLException e) {
 				e.printStackTrace();
-				System.out.println("连接错误2");
+				System.out.println("连接Loginservlet错误2");
 			}
 			
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("连接错误1");
+			System.out.println("连接Loginservlet错误1");
 		}
 	}
 	public void doPost(HttpServletRequest request,HttpServletResponse response) 
