@@ -34,12 +34,10 @@ public class Loginservlet extends HttpServlet{
 					HttpSession session = request.getSession();
 					session.setAttribute("name", name);
 					//登录成功
-					String site = "main.jsp";
-					request.getRequestDispatcher(site).forward(request,response); 
+					out.println("true");
 				}else {
 					//登录失败
-					request.setAttribute("error", "您输入的管理员账号或密码不正确");
-					request.getRequestDispatcher("index.jsp").forward(request,response); 
+					out.println("false");
 				}
 				System.out.println("连接Loginservlet成功");
 			}catch(SQLException e) {

@@ -43,9 +43,6 @@ public class borrowBook extends HttpServlet {
 		String givebackTime = request.getParameter("givebackTime");
 		String operator = request.getParameter("operator");
 		operator = URLDecoder.decode(operator,"utf-8");
-		System.out.print("operator=" + operator );
-		System.out.print("readerid=" + readerid + ",bookid=" + bookid);
-		System.out.print("givebackTime=" + givebackTime + ",borrowtime=" + borrowtime);
 		try {
 			Class.forName(driverName);
 			try {
@@ -57,31 +54,40 @@ public class borrowBook extends HttpServlet {
 				//连接成功后开始查询
 				
 				//写查询语句
-				String sql = "select readerid,bookid from borrow where readerid='"+(readerid)+"' and bookid='"+(bookid)+"'";
-				boolean flag = true;
+				String sql = "select ifback from borrow where readerid='"+(readerid)+"' and bookid='"+(bookid)+"'";
+				//书的数量减少1
+				String update1Sql = "update bookinfo set bookNumber=bookNumber-1 where id='"+(bookid)+"'";
+				//学生可借阅量减少1
+				String update2Sql = "update reader set borrownumber=borrownumber-1 where id='"+(readerid)+"'";
 				ResultSet rs = st.executeQuery(sql);
-				
-				System.out.print(rs);
-				//获取结果
-				
-				while(rs.next()) {
-					String getReaderid = rs.getString("readerid");
-					String getBbookid = rs.getString("bookid");
-					if(readerid.equals(getReaderid) && getBbookid.equals(bookid)) {
-						System.out.print("已经借了这本书");
-						flag = false;
-						break;
-					}
-				}
-				//如果没有这条信息,就加入到数据库
-				if(flag){
+				//判断有无数据
+				if(rs.next()) {
+					do{
+						int ifback = rs.getInt("ifback");
+						System.out.println(ifback);
+						//没有归还就是0
+						if(ifback == 0) {
+							out.println("false");
+							break;
+						}else {
+							out.println("true");
+							//这里就是还了,那么把它的ifback设置为0
+							String update3sql = "update borrow set ifback=0 where readerid='"+(readerid)+"' and bookid='"+(bookid)+"'";
+							st.execute(update1Sql);
+							st.execute(update2Sql);
+							st.execute(update3sql);
+						}
+					}while(rs.next());
+				} else {
+					//没有借过书
+					//插入到借阅表
 					String newSql = "insert into borrow values('"+(readerid)+"','"+(bookid)+"','"+(borrowtime)+"','"+(givebackTime)+"','"+(operator)+"',0)";
+					st.execute(update1Sql);
+					st.execute(update2Sql);
 					st.execute(newSql);
 					out.println("true");
-				}else {
-					//已经借了这本书,不插入数据
-					out.println("false");
 				}
+				
 			}catch(SQLException e) {
 				e.printStackTrace();
 				System.out.println("连接borrowBook错误2");

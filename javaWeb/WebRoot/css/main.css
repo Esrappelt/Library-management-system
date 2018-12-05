@@ -2,7 +2,12 @@
 	padding: 0;
 	margin: 0;
 }
-.banner {
+body,html {
+	height: 100%;
+	overflow: hidden;
+	background: #f7f7f7;
+}
+.mybanner {
 	width: 100%;
 	height: 50px;
 	margin:  0 auto;
@@ -21,10 +26,10 @@ li{
 a {
 	text-decoration: none;
 }
-.banner a {
+.mybanner a {
 	color: white;
 }
-.banner .banner-top {
+.mybanner .banner-top {
 	width: 80%;
 	height: 100%;
 	display: flex;
@@ -33,7 +38,7 @@ a {
 	text-align: center;
 	align-items: center;
 }
-.banner .banner-top li {
+.mybanner .banner-top li {
 	height: 100%;
 	line-height: 50px;
 	width: 15%;
@@ -52,7 +57,7 @@ a {
 .bookInfo .library_icon{
 	width: 100%;
 	height: 150px;
-	background: url('../imgs/library.jpg') no-repeat 0 0;
+	background: url('../img/library.jpg') no-repeat 0 0;
 	background-size: 100% 100%;
 }
 
@@ -107,18 +112,35 @@ a {
 .stuinfo {
 	text-align: center;
 	margin: 20px auto;
+	padding-top: 50px;
 }
 
 .bookTitle {
 	text-align: center;
 	padding: 10px 0;
 	margin-top:30px;
+ }
+.noBook {
+  width: 200px;
+  height: 200px;
+  background: url('../img/noBook.png');
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translate(-50%, 30%);
+  display: none;
 }
-
-
-
-
-
+.copyright {
+	height: 50px;
+	width: 100%;
+	background: rgba(104, 54, 153,1);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+	line-height: 50px;
+	color: white;
+}
 
 
 

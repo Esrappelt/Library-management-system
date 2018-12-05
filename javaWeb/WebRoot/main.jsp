@@ -13,19 +13,20 @@
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-
+	<link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css'>
+	<link rel="stylesheet" href="css/banner.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link href="imgs/favicon.ico" href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<link href="img/favicon.ico" href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
 	<script type="text/javascript" src="js/jquery.js"></script>
   </head>
   
   <body>
-  	
+
   	<div class="header">
-		<div class="banner">
+		<div class="mybanner">
 			<ul class="banner-top">
 				<li class="content" data-id="indexJsp"><a href="javascript:;">首页</a></li>
-				<li class="content" data-id="bookManage"><a href="javascript:;">图书管理</a></li>
+				<li class="content" data-id="bookManage"><a href="javascript:;">图书续借</a></li>
 				<li class="content" data-id="borrowBook"><a href="javascript:;">图书借阅</a></li>
 				<li class="content" data-id="givebackBook"><a href="javascript:;">图书归还</a></li>
 				<li class="content" data-id="findBook"><a href="javascript:;">图书查询</a></li>
@@ -40,7 +41,6 @@
 				<div class="bookInfo">
 					<div class="library_icon"></div>
 					<div class="rangeTitle"><h3>图书借阅排行榜>></h3></div>
-
 			    	<!-- 显示图书借阅排行榜 -->
 			    	<div class="range">
 			    		<ul class="baseInfo">
@@ -59,11 +59,10 @@
 		</div>
 
 	</div>
-    
-	
-    
-    
-   
+    <div class="copyright">
+		CopyRight@2018 四川大学锦江学院
+		本网站由肖誉杰制作
+	</div>
     <script>
   	$(function (){
 			init();
@@ -115,9 +114,6 @@
 					case '#findBook':
 						path = "findBook.jsp";
 						break;
-					case '#exitSystem':
-						path = "index.jsp";
-						break;
 				}
 				$mainContent.html("");
 				$mainContent.load(path);
@@ -157,9 +153,13 @@
 				var $mainContent = $("#mainContent");
 				$content.on('click',function(event) {
 					var sId = $(this).data('id');
-					window.location.hash = sId;
-					loadInfo($mainContent);
-					console.log(window.location.hash);
+					if($.trim(sId) == "exitSystem" ){
+						window.location = "index.jsp";
+					}else {
+						window.location.hash = sId;
+						console.log(window.location.hash);
+						loadInfo($mainContent);
+					}
 				});
 			}
 		});

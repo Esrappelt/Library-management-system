@@ -17,7 +17,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 
-
+	<style>
+		.banner {
+			width: 100%;
+			height: 336px;
+		}
+	</style>
   </head>
   
   <body>
@@ -25,7 +30,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="bookInfo">
 			<div class="library_icon"></div>
 			<div class="rangeTitle"><h3>图书借阅排行榜>></h3></div>
-
 	    	<!-- 显示图书借阅排行榜 -->
 	    	<div class="range">
 	    		<ul class="baseInfo">
@@ -41,8 +45,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	</div>	
 	    </div>
 	</div>
-			
+	<div class="noBook"></div>
   </body>
+  <script type="text/javascript" src="js/banner.js"></script>
   <script>
   	getbookInfo();
   	function bookInfo(data){

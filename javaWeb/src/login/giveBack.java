@@ -19,9 +19,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 
-public class bookInfo extends HttpServlet {
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
+public class giveBack extends HttpServlet {
+
+	
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		response.setContentType("text/html");
 		//初始化
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
@@ -29,27 +34,27 @@ public class bookInfo extends HttpServlet {
 		String url = "jdbc:sqlserver://localhost:1433;DatabaseName=library";
 		String user = "sa";
 		String pwd = "160510111xyj";
+		//获取参数
+		String stuno = request.getParameter("stuno");
 		//创建数据库对象st
 		Statement st;
-		//获取参数
-		
 		try {
 			Class.forName(driverName);
 			try {
 				Connection conn = DriverManager.getConnection(url,user,pwd);
 				//创建查询对象
 				st = conn.createStatement();
-				System.out.println("连接bookInfo成功");
+				System.out.println("连接giveBack成功");
 				
 				//连接成功后开始查询
 				
 				List<Map> list = new ArrayList<Map>();//创建list集合用于存入map的键值对集合
 				//写查询语句
-				String sql = "select top 5 * from bookinfo";
+				String sql = "select bookid,bookname,isbnName,bookNumber,price,del,barcode,author,translator from borrow join bookinfo on borrow.bookid = bookinfo.id where readerid='"+(stuno)+"' and ifback=0";
 				//获取结果
 				ResultSet rs = st.executeQuery(sql);
 				while(rs.next()){
-					String bookid = rs.getString("id");
+					String bookid = rs.getString("bookid");
 					String bookname = rs.getString("bookname");//获取图书名字
 					String author = rs.getString("author");//获取作者
 					String translator = rs.getString("translator");//获取翻译者
@@ -79,19 +84,24 @@ public class bookInfo extends HttpServlet {
 				out.close();
 		}catch(SQLException e) {
 			e.printStackTrace();
-			System.out.println("连接bookInfo错误2");
+			System.out.println("连接giveBack错误2");
 		}
 	
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("连接bookInfo错误1");
+			System.out.println("连接giveBack错误1");
 		}
+		
 	}
-
 	
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		this.doGet(request, response);
+	
+	
+	
+	
+	
+	
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
+		this.doPost(request, response);
 	}
-
 }

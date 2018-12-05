@@ -35,6 +35,20 @@
     <servlet-name>borrowBook</servlet-name>
     <servlet-class>login.borrowBook</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>giveBack</servlet-name>
+    <servlet-class>login.giveBack</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>giveSuccess</servlet-name>
+    <servlet-class>login.giveSuccess</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -62,7 +76,32 @@
     <servlet-name>borrowBook</servlet-name>
     <url-pattern>/borrowBook</url-pattern>
   </servlet-mapping>
-
+  <servlet-mapping>
+    <servlet-name>giveBack</servlet-name>
+    <url-pattern>/giveBack</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>giveSuccess</servlet-name>
+    <url-pattern>/giveSuccess</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  <filter>
+  	<filter-name>CharactorFilter</filter-name>
+  	<filter-class>login.CharactorFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>utf-8</param-value>
+  	</init-param>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>CharactorFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

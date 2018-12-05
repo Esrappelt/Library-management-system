@@ -16,9 +16,163 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	<style>
+		#common *{
+		  box-sizing: border-box;
+		}
+		input {
+		  border: 1px solid #ccc;
+		  font-size: 12px;
+		  height: 30px;
+		  padding: 4px 8px;
+		  position: absolute;
+		  width: 50%;
+		}
+		input:focus {
+		  outline: none;
+		}
+
+		button {
+		  text-align: center;
+		}
+		button:focus {
+		  outline: none;
+		}
+		button.btn-search, button.btn-reset {
+		  background: hotpink;
+		  border: none;
+		  height: 30px;
+		  font-size: 12px;
+		  padding: 4px;
+		  position: absolute;
+		  width: 30px;
+		}
+
+		.sample {
+		  height: 30px;
+		  position: relative;
+		  left: 0;
+		  top: 0px;
+		  width: 120px;
+		  float: left;
+		}
+		.sample2 {
+			height: 30px;
+		    position: relative;
+		    left: 0;
+		    top: 0;
+		    float: left;
+		    margin-left: 100px;
+		}
+		.sample.nine input, .sample.ten input {
+		  border-radius: 15px;
+		  transition: all .6s ease-in-out .3s;
+		  width: 120px;
+		}
+		.sample.nine input:focus, .sample.ten input:focus {
+		  transition-delay: 0;
+		  width: 200px;
+		}
+		.sample.nine input:focus ~ button, .sample.ten input:focus ~ button {
+		  transform: rotateZ(360deg);
+		}
+		.sample.nine input:focus ~ button.btn-search, .sample.ten input:focus ~ button.btn-search {
+		  background: hotpink;
+		  color: #fff;
+		  left: 172px;
+		  transition-delay: 0;
+		}
+		.sample.nine input:focus ~ button.btn-reset, .sample.ten input:focus ~ button.btn-reset {
+		  left: 202px;
+		  transition-delay: .3s;
+		}
+		.sample.nine button, .sample.ten button {
+		  transition: all .6s ease-in-out;
+		}
+		.sample.nine button.btn-search, .sample.ten button.btn-search {
+		  background: #ccc;
+		  border-radius: 50%;
+		  height: 26px;
+		  left: 92px;
+		  top: 2px;
+		  transition-delay: .3s;
+		  width: 26px;
+		}
+		.sample.nine button.btn-reset, .sample.ten button.btn-reset {
+		  background: #fff;
+		  border: 1px solid #ccc;
+		  border-radius: 50%;
+		  font-size: 10px;
+		  height: 20px;
+		  left: 92px;
+		  line-height: 20px;
+		  padding: 0;
+		  top: 5px;
+		  width: 20px;
+		  z-index: -1;
+		}
+
+		@keyframes bounceRight {
+		  0% {
+		    transform: translateX(0px);
+		  }
+		  50% {
+		    transform: translateX(10px);
+		  }
+		  100% {
+		    transform: translateX(0px);
+		  }
+		}
+		@keyframes jumpTowardSearch {
+		  0% {
+		    background: #ccc;
+		    opacity: 1;
+		    transform: rotateZ(0deg) scale(1);
+		  }
+		  20% {
+		    background: #ccc;
+		    opacity: 0;
+		    transform: rotateZ(-60deg) scale(50);
+		  }
+		  55% {
+		    background: hotpink;
+		    opacity: 0;
+		    transform: rotateZ(-30deg) scale(100);
+		  }
+		  90% {
+		    background: hotpink;
+		    opacity: 0;
+		    transform: rotateZ(-30deg) scale(50);
+		  }
+		  100% {
+		    background: hotpink;
+		    opacity: 1;
+		    transform: rotateZ(0deg) scale(1);
+		  }
+		}
+		@keyframes jumpTowardReset {
+		  0% {
+		    opacity: 0;
+		    transform: rotateZ(0deg) scale(1);
+		  }
+		  20% {
+		    opacity: 0;
+		    transform: rotateZ(-60deg) scale(50);
+		  }
+		  55% {
+		    opacity: 0;
+		    transform: rotateZ(-30deg) scale(100);
+		  }
+		  90% {
+		    opacity: 0;
+		    transform: rotateZ(-30deg) scale(50);
+		  }
+		  100% {
+		    opacity: 1;
+		    transform: rotateZ(0deg) scale(1);
+		  }
+		}
+	</style>
 	<style>
 		* {
 			padding: 0;
@@ -38,7 +192,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			color: white;
 			font-size: 16px;
 			border-radius: 5px;
-			bottom: 10%;
+			bottom: 15%;
 			left: 50%;
 			margin-bottom: -25px;
 			margin-left: -50px;
@@ -47,22 +201,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		#submit:hover {
 			background: black;
 		}
+		.sample3 {
+			height: 30px;
+		    position: relative;
+		    left: 0;
+		    top: 0;
+		    float: left;
+		    margin-left: 100px;
+		}
+		.sample4 {
+			height: 30px;
+			  position: relative;
+			  left: 0;
+			  top: 0px;
+			  width: 120px;
+			  float: left;
+		}
+		#success {
+			width: 70px;
+			cursor: pointer;
+			margin-left: 100px;
+		}
 	</style>
   </head>
   
   <body> 
-    <form>
-		请输入学生的学号
-		<input type="number" name="stuno">
-		<div class="addway">
-			请选择添加图书的方式：
-			<input type="text" name="barcode" placeholder="请输入图书条形码" >
-			或者<input type="text" name="bookTitle" placeholder="请输入图书名称">
-			<input type="button" value="确定填写完成" name="confirm">
+    <form id="common">
+    	<div class="sample2">请输入学生的学号</div>
+    	<div class="sample nine" >
+		  <input type="text" name="search" placeholder="search" id="stuno">
+		  <button type="submit" class="btn btn-search" disabled >
+		    <i class="fa fa-search"></i>
+		  </button>
 		</div>
-		
+		<div class="sample3">请输入图书条形码</div>
+    	<div class="sample sample4 nine" >
+		  <input type="text" name="search" placeholder="search" id="barcode">
+		  <button type="submit" class="btn btn-search" disabled >
+		    <i class="fa fa-search"></i>
+		  </button>
+		</div>
+		<div class="sample3">或者请输入图书名称</div>
+    	<div class="sample sample4 nine" >
+		  <input type="text" name="search" placeholder="search" id="bookTitle">
+		  <button type="submit" class="btn btn-search" disabled >
+		    <i class="fa fa-search"></i>
+		  </button>
+		</div>
+		<input id="success" type="button" value="填写完成" name="confirm">
 		<input type="button" value="完成借阅" id="submit">
 	</form>
+
+
+
+
+
+
 	<!-- 学生信息显示 -->
 	<div id="readerInfo">
 		<div class="indexJsp">
@@ -85,6 +279,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
     	</div>
 	</div>
+	
+	
+	
+	
+
 
 	<!-- 要借的图书的信息 -->
 	<div id="bookInfo">
@@ -108,18 +307,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<input type="hidden" value="<%=session.getAttribute("name")%>">
-	
+	<div class="noBook"></div>
 	
 	
 	
 	<script>
   		$(function (){
 			//获取学号
-			var $stuno = $("input[name=stuno]");
+			var $stuno = $("#stuno");
 			//获取图书条形码
-			var $barcode = $("input[name=barcode]");
+			var $barcode = $("#barcode");
 			//获取图书名称
-			var $bookTitle = $("input[name=bookTitle]");
+			var $bookTitle = $("#bookTitle");
 			//获取完成
 			var $confirm = $("input[name=confirm]");
 			//获取提交
@@ -129,7 +328,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			//判断输入的情况
 			var hasReaderInfo = false,hasBookInfo = false;
 			//保存id
-			var readerid,bookid;		
+			var readerid,bookid;	
+			//保存读者还有无借阅量
+			var readerCanBorrow	= true;
+			//获取操作员
+			var operator = $("input[type=hidden]").val();
+			operator = encodeURI(operator);
 			//函数的统一管理
 			function getAllInfo(callback){
 				//管理读者
@@ -151,7 +355,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					throttle(getReaderInfo);
 				});
 			}
-
+			//获取读者信息
 			function getReaderInfo(){
 				var url = "ReaderInfo?stuno=" + stunoInputValue; 
 				$.ajax({
@@ -160,22 +364,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					dataType: 'json'
 				})
 				.done(function(data) {
-					
-					processReaderInfo(data);
-					
-					hasReaderInfo = true;
 					$stuno.val("");
+					removeReader();
+					if(data.length == 0) {
+						noBookshow();
+						return;
+					}
+					processReaderInfo(data);
+					hasReaderInfo = true;
 				})
 			}
 			//这里渲染读者信息
 			function processReaderInfo(data){
-				console.log(data);
+				noBookhide();
 				readerid = data[0].readerid;
-				console.log(readerid);
-				//获取读者DIV
-				var $readerInfo = $("#readerInfo");
-				$readerInfo.find('.indexJsp .range .book').remove();
+				readerCanBorrow = (data[0].borrownumber > 0);
 				addReader(data);
+			}
+			function removeReader(){
+				var $readerInfo = $("#readerInfo");
+				$readerInfo.find('.book').remove();
 			}
 			//读者模块结束
 
@@ -188,10 +396,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						alert("请输入图书名称或者图书条形码以获取图书信息！");
 						return;
 					}
-					//设置日期
-					var time = setTime();
-					var operator = $("input[type=hidden]").val();
-					operator = encodeURI(operator);
+					if(!readerCanBorrow) {
+						alert("对不起，您已经借了5本书了，不能再借了!!");
+						return;
+					}
+					//设置日期为30天
+					var time = setTime(30);
 					var param = {
 						'readerid':readerid,
 						'bookid':bookid,
@@ -199,7 +409,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						'givebackTime':time.givebackTime,
 						'operator':operator
 					};
-					console.log(param);
 					$.ajax({
 						url: 'borrowBook',
 						type: 'post',
@@ -213,17 +422,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					})
 				});
 			}
-			function setTime(){
+			function setTime(addDay){
 	            var date = new Date();
 	            var year = date.getFullYear(),month = date.getMonth() + 1,day = date.getDay() + 1;
 	            var borrowtime = year + "-" + month + "-" + day;
 	            var givebackDate = new Date(year,month,day);
 	            var newyear = givebackDate.getFullYear(),newmonth = givebackDate.getMonth() + 1,newday = givebackDate.getDay() + 1;
-	            givebackDate.setDate(date.getDate()+30);
+	            givebackDate.setDate(date.getDate()+addDay);
 	            var givebackTime =  newyear + "-" + newmonth + "-" + newday;
 	            return {"borrowtime":borrowtime,"givebackTime":givebackTime};
        	 	}
 			function canSubmit(){
+
 				return hasBookInfo && hasReaderInfo;
 			}
 			function processSuccessBorrow(data){
@@ -285,18 +495,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					dataType: 'json'
 				})
 				.done(function(data) {
+					removeBook();
+					$barcode.val("");
+					$bookTitle.val("");
+					if(data.length == 0) {
+						noBookshow();
+						return;
+					}
 					bookid = data[0].bookid;
-					console.log('bookid=' + bookid);
 					callback(data);
 				})
 			}
 			//这里渲染图书信息
 			function processBookInfo(data){
-				console.log(data);
-				var $bookInfo = $("#bookInfo");
-				$bookInfo.find('.indexJsp .book').remove();
+				noBookhide();
 				bookInfo(data);
 				hasBookInfo = true;
+			}
+			//在页面中移除book的显示
+			function removeBook(){
+				var $bookInfo = $("#bookInfo");
+				$bookInfo.find('.indexJsp .book').remove();
 			}
 			//图书模块结束
 
@@ -324,7 +543,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			function createBook(index,res){
 				var $ul = $("<ul class='book'></ul>");
-				var $li = $("<li>"+(index)+"</li><li>"+(res.barcode)+"</li><li>"+(res.bookname)+"</li><li>"+(res.isbnName)+"</li><li>"+(res.author)+"</li><li>"+(res.price)+"</li><li>"+(res.bookNumber)+"</li><li>"+(res.del ? "未下架" : "已下架")+"</li>");
+				var $li = $("<li>"+(res.barcode)+"</li><li>"+(res.bookname)+"</li><li>"+(res.isbnName)+"</li><li>"+(res.author)+"</li><li>"+(res.price)+"</li><li>"+(res.bookNumber)+"</li><li>"+(res.del ? "未下架" : "已下架")+"</li>");
 				$ul.append($li);
 				return $ul;
 			}
@@ -342,6 +561,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$ul.append($li);
 				return $ul;
 			}
+			//显示未查询到的处理
+			function noBookshow(){
+
+				$(".noBook").show();
+			}
+			//隐藏未查询到的处理
+			function noBookhide() {
+
+				$(".noBook").hide();
+			}
+			//调用总函数
 			getAllInfo(function (BorrowInit){
 				BorrowInit();
 			});
