@@ -1,97 +1,1 @@
-package login;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONArray;
-
-public class bookInfo extends HttpServlet {
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		//³õÊ¼»¯
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-		String url = "jdbc:sqlserver://localhost:1433;DatabaseName=library";
-		String user = "sa";
-		String pwd = "160510111xyj";
-		//´´½¨Êý¾Ý¿â¶ÔÏóst
-		Statement st;
-		//»ñÈ¡²ÎÊý
-		
-		try {
-			Class.forName(driverName);
-			try {
-				Connection conn = DriverManager.getConnection(url,user,pwd);
-				//´´½¨²éÑ¯¶ÔÏó
-				st = conn.createStatement();
-				System.out.println("Á¬½ÓbookInfo³É¹¦");
-				
-				//Á¬½Ó³É¹¦ºó¿ªÊ¼²éÑ¯
-				
-				List<Map> list = new ArrayList<Map>();//´´½¨list¼¯ºÏÓÃÓÚ´æÈëmapµÄ¼üÖµ¶Ô¼¯ºÏ
-				//Ð´²éÑ¯Óï¾ä
-				String sql = "select top 5 * from bookinfo";
-				//»ñÈ¡½á¹û
-				ResultSet rs = st.executeQuery(sql);
-				while(rs.next()){
-					String bookid = rs.getString("id");
-					String bookname = rs.getString("bookname");//»ñÈ¡Í¼ÊéÃû×Ö
-					String author = rs.getString("author");//»ñÈ¡×÷Õß
-					String translator = rs.getString("translator");//»ñÈ¡·­ÒëÕß
-					String isbnName = rs.getString("isbnName");//»ñÈ¡³ö°æÉç
-					String bookNumber = rs.getString("bookNumber");//»ñÈ¡Ê£ÓàÍ¼ÊéÊýÁ¿
-					String price = rs.getString("price");//»ñÈ¡Í¼Êé¼Û¸ñ
-					String del = rs.getString("del");//»ñÈ¡ÊÇ·ñÏÂ¼Ü
-					String barcode = rs.getString("barcode");//»ñÈ¡ÊÇÌõÐÎÂë
-					//´´½¨Map
-					Map map = new HashMap();
-					map.put("bookid", bookid);
-					map.put("bookname", bookname);
-					map.put("author", author);
-					map.put("translator", translator);
-					map.put("isbnName", isbnName);
-					map.put("bookNumber", bookNumber);
-					map.put("price", price);
-					map.put("del", del);
-					map.put("barcode", barcode);
-
-					list.add(map);//½«Õâ¸ömap¶ÔÏó·ÅÈëlist
-				}
-				JSONArray jsonArray = JSONArray.fromObject(list);
-				System.out.print(jsonArray);
-				PrintWriter out = response.getWriter();
-				out.println(jsonArray);
-				out.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-			System.out.println("Á¬½ÓbookInfo´íÎó2");
-		}
-	
-		}catch(ClassNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("Á¬½ÓbookInfo´íÎó1");
-		}
-	}
-
-	
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		this.doGet(request, response);
-	}
-
-}
+package login;import java.io.IOException;import java.io.PrintWriter;import java.sql.Connection;import java.sql.DriverManager;import java.sql.ResultSet;import java.sql.SQLException;import java.sql.Statement;import java.util.ArrayList;import java.util.HashMap;import java.util.List;import java.util.Map;import javax.servlet.ServletException;import javax.servlet.http.HttpServlet;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;import net.sf.json.JSONArray;public class bookInfo extends HttpServlet {	public void doGet(HttpServletRequest request, HttpServletResponse response)			throws ServletException, IOException {		//ï¿½ï¿½Ê¼ï¿½ï¿½		request.setCharacterEncoding("utf-8");		response.setCharacterEncoding("utf-8");		String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";		String url = "jdbc:sqlserver://localhost:1433;DatabaseName=library";		String user = "sa";		String pwd = "160510111xyj";		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½st		Statement st;		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½				try {			Class.forName(driverName);			try {				Connection conn = DriverManager.getConnection(url,user,pwd);				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½				st = conn.createStatement();								//ï¿½ï¿½ï¿½Ó³É¹ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ñ¯								List<Map> list = new ArrayList<Map>();//ï¿½ï¿½ï¿½ï¿½listï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½mapï¿½Ä¼ï¿½Öµï¿½Ô¼ï¿½ï¿½ï¿½				//Ð´ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½				String sql = "select * from bookinfo";				//ï¿½ï¿½È¡ï¿½ï¿½ï¿½				ResultSet rs = st.executeQuery(sql);				while(rs.next()){					String bookid = rs.getString("id");					String bookname = rs.getString("bookname");//ï¿½ï¿½È¡Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½					String author = rs.getString("author");//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½					String translator = rs.getString("translator");//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½					String isbnName = rs.getString("isbnName");//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½					String bookNumber = rs.getString("bookNumber");//ï¿½ï¿½È¡Ê£ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½					String price = rs.getString("price");//ï¿½ï¿½È¡Í¼ï¿½ï¿½Û¸ï¿½					String del = rs.getString("del");//ï¿½ï¿½È¡ï¿½Ç·ï¿½ï¿½Â¼ï¿½					String barcode = rs.getString("barcode");//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½					//ï¿½ï¿½ï¿½ï¿½Map					Map map = new HashMap();					map.put("bookid", bookid);					map.put("bookname", bookname);					map.put("author", author);					map.put("translator", translator);					map.put("isbnName", isbnName);					map.put("bookNumber", bookNumber);					map.put("price", price);					map.put("del", del);					map.put("barcode", barcode);					list.add(map);//ï¿½ï¿½ï¿½ï¿½ï¿½mapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½list				}				JSONArray jsonArray = JSONArray.fromObject(list);				PrintWriter out = response.getWriter();				out.println(jsonArray);				out.close();		}catch(SQLException e) {			e.printStackTrace();		}			}catch(ClassNotFoundException e) {			e.printStackTrace();		}	}		public void doPost(HttpServletRequest request, HttpServletResponse response)			throws ServletException, IOException {		this.doGet(request, response);	}}

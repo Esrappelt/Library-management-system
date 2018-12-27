@@ -123,7 +123,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           //编码
           value = encodeURI(encodeURI(value));
           var urlParam = "findBook?"+(className)+"=" + value;
-          console.log(urlParam);
           $.ajax({
               url: urlParam,
               type: 'get',

@@ -221,7 +221,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		$stuno.on('input', function(event) {
   			event.preventDefault();
   			stuInfo = $(this).val();
-        console.log(stuInfo);
   			throttle(processStuInfo);
   		});
   		//用户点击归还

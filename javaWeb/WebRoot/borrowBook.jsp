@@ -416,7 +416,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						data: param
 					})
 					.done(function(data) {
-						console.log(data);
 						processSuccessBorrow(data);
 						
 					})
@@ -442,7 +441,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					alert("恭喜您，借阅成功，请记得及时归还!");
 				}else if($.trim(data) == "false"){
 					//
-					console.log('抱歉，您已经借了这本书了，应该归还!');
 					alert('抱歉，您已经借了这本书了，应该归还!');
 				}
 			}

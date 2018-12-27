@@ -14,9 +14,8 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css'>
-	<link rel="stylesheet" href="css/banner.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link href="img/favicon.ico" href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 	<script type="text/javascript" src="js/jquery.js"></script>
   </head>
   
@@ -26,7 +25,7 @@
 		<div class="mybanner">
 			<ul class="banner-top">
 				<li class="content" data-id="indexJsp"><a href="javascript:;">首页</a></li>
-				<li class="content" data-id="bookManage"><a href="javascript:;">图书续借</a></li>
+				<li class="content" data-id="bookManage"><a href="javascript:;">图书修改</a></li>
 				<li class="content" data-id="borrowBook"><a href="javascript:;">图书借阅</a></li>
 				<li class="content" data-id="givebackBook"><a href="javascript:;">图书归还</a></li>
 				<li class="content" data-id="findBook"><a href="javascript:;">图书查询</a></li>
@@ -41,7 +40,6 @@
 				<div class="bookInfo">
 					<div class="library_icon"></div>
 					<div class="rangeTitle"><h3>图书借阅排行榜>></h3></div>
-			    	<!-- 显示图书借阅排行榜 -->
 			    	<div class="range">
 			    		<ul class="baseInfo">
 							<li>排名</li>
@@ -57,14 +55,16 @@
 			    </div>
 			</div>
 		</div>
-
 	</div>
+	
+
     <div class="copyright">
-		CopyRight@2018 四川大学锦江学院
+		CopyRight@2018 图书管理系统
 		本网站由肖誉杰制作
 	</div>
+	
     <script>
-  	$(function (){
+  		$(function (){
 			init();
 			window.onload = function (){
 				getbookInfo();
@@ -95,6 +95,7 @@
 	   				$time.innerHTML = formatTime;
 	   			}
    			}
+   			
 			function loadInfo($mainContent){
 				var sId = window.location.hash;
 				var path,i;
@@ -127,7 +128,7 @@
 	    	}
 	    	function createBook(index,res){
 	    		var $ul = $("<ul class='book'></ul>");
-	    		var $li = $("<li>"+(index)+"</li><li>"+(res.barcode)+"</li><li>"+(res.bookname)+"</li><li>"+(res.isbnName)+"</li><li>"+(res.author)+"</li><li>"+(res.price)+"</li><li>"+(res.bookNumber)+"</li><li>"+(res.del ? "未下架" : "已下架")+"</li>");
+	    		var $li = $("<li>"+(index)+"</li><li>"+(res.barcode)+"</li><li>"+(res.bookname)+"</li><li>"+(res.isbnName)+"</li><li>"+(res.author)+"</li><li>"+(res.price)+"</li><li>"+(res.bookNumber)+"</li><li>"+(res.del == 0 ? "未下架" : "已下架")+"</li>");
 	    		$ul.append($li);
 	    		return $ul;
 	    	}
@@ -140,16 +141,14 @@
 					async:false, 
 					success:function (data){
 						bookInfo(data);
-						console.log(data);
 					},
 					error:function(data){
-						console.log("无获取到数据");
+						console.log(data.status);
 					}
 				})
 			}
 			function initAll(){
 				var $content = $(".header .content");
-				console.log($content);
 				var $mainContent = $("#mainContent");
 				$content.on('click',function(event) {
 					var sId = $(this).data('id');
@@ -157,14 +156,13 @@
 						window.location = "index.jsp";
 					}else {
 						window.location.hash = sId;
-						console.log(window.location.hash);
 						loadInfo($mainContent);
 					}
 				});
 			}
 		});
-    
-  </script>
+
+  	</script>
   </body>
 
 </html>

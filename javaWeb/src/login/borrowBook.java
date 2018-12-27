@@ -49,7 +49,6 @@ public class borrowBook extends HttpServlet {
 				Connection conn = DriverManager.getConnection(url,user,pwd);
 				//创建查询对象
 				st = conn.createStatement();
-				System.out.println("连接borrowBook成功");
 				
 				//连接成功后开始查询
 				
@@ -64,7 +63,6 @@ public class borrowBook extends HttpServlet {
 				if(rs.next()) {
 					do{
 						int ifback = rs.getInt("ifback");
-						System.out.println(ifback);
 						//没有归还就是0
 						if(ifback == 0) {
 							out.println("false");
@@ -90,11 +88,9 @@ public class borrowBook extends HttpServlet {
 				
 			}catch(SQLException e) {
 				e.printStackTrace();
-				System.out.println("连接borrowBook错误2");
 			}
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("连接borrowBook错误1");
 		}
 		out.close();
 	}

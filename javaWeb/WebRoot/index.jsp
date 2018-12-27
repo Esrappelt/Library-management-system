@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>带CSS3动画特效的时尚登录界面UI设计|DEMO_jQuery之家-自由分享jQuery、html5、css3的插件库</title>
+  <title>登录</title>
   <link href="http://cdn.bootcss.com/jqueryui/1.11.0/jquery-ui.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/default.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <h3 class="mainJsp">进入首页</h3>
     </div>
     <div class='disclaimer'>
-      <p>图书管理系统是一个...........</p>
+      <p>图书管理系统</p>
     </div>
   </div>
   <div class='authent'>
@@ -76,9 +76,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   $('input[type="submit"]').click(function () {
       var username = $("#username").val();
       var password = $("#password").val();
+      if(username == "" || password == ""){ alert("请输入用户名和密码!");return;}
       var pwd = $.md5(password);
-      console.log(username);
-      console.log(pwd);
       $('.login').addClass('test');
       setTimeout(function () {
           $('.login').addClass('testtwo');
@@ -94,7 +93,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               queue: false
           }).addClass('visible');
       }, 500);
-      
       $.ajax({
         url: 'Loginservlet',
         type: 'post',
@@ -106,15 +104,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       })
       .done(function(data) {
         if($.trim(data) == "true"){
-          console.log('成功');
           processLogin();
         }else {
           errorLogin();
-          console.log('失败');
         }
       })
-      .fail(function() {
-        console.log("error");
+      .fail(function(e) {
+        console.log(e.status);
       })
       function errorLogin(){
         setTimeout(function () {
